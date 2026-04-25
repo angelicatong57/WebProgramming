@@ -52,6 +52,11 @@
       changePwdLink.href = '/change-password.html';
       changePwdLink.textContent = 'Change Password';
       mountLinks.appendChild(changePwdLink);
+
+      const myOrdersLink = document.createElement('a');
+      myOrdersLink.href = '/member.html';
+      myOrdersLink.textContent = 'My Orders';
+      mountLinks.appendChild(myOrdersLink);
     } else {
       const loginLink = document.createElement('a');
       loginLink.href = '/login.html';

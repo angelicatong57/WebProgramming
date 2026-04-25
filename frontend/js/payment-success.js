@@ -7,6 +7,11 @@
     if (detailEl) detailEl.textContent = detail;
   }
 
+  function redirectToHome(orderId) {
+    const target = `/home.html?checkout=success&order_id=${encodeURIComponent(orderId)}`;
+    window.location.replace(target);
+  }
+
   async function pollOrder(orderId, maxTries = 8) {
     for (let i = 0; i < maxTries; i += 1) {
       const response = await window.csrfFetch(`/api/orders/${encodeURIComponent(orderId)}/status`);
@@ -37,6 +42,7 @@
       const order = await pollOrder(orderId);
       if (order && order.status === 'PAID') {
         setStatus('Payment successful', `Order #${order.order_id} has been paid.`);
+        redirectToHome(order.order_id || orderId);
       } else {
         setStatus('Payment pending', `Order #${orderId} is still being processed.`);
       }

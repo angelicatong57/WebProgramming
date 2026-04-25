@@ -117,6 +117,10 @@ body {
     background: #007bff;
 }
 
+.tab-btn.orders.active {
+    background: #007bff;
+}
+
 /* ===== Content area ===== */
 .tab-content {
     background: white;
@@ -416,6 +420,33 @@ body {
 .item-actions {
     display: flex;
     gap: 5px;
+}
+
+.order-card {
+    display: block;
+}
+
+.order-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.order-status {
+    border-radius: 12px;
+    padding: 2px 8px;
+    font-size: 12px;
+    font-weight: 600;
+    background: #eef3ff;
+    color: #2249aa;
+}
+
+.order-items {
+    margin-top: 8px;
+    border-top: 1px dashed #ddd;
+    padding-top: 8px;
+    font-size: 13px;
 }
 
 /* ===== Icon button styles ===== */

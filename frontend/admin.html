@@ -24,6 +24,7 @@
         <nav class="tabs">
             <button class="tab-btn products active" data-tab="products">Products</button>
             <button class="tab-btn categories" data-tab="categories">Categories</button>
+            <button class="tab-btn orders" data-tab="orders">Orders</button>
         </nav>
         
         <!-- Alert container -->
@@ -169,6 +170,37 @@
                     
                     <!-- Category list container -->
                     <div id="categoryList" class="items-container">
+                        <div class="loading">Loading...</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Orders panel -->
+        <section id="orders-tab" class="tab-content">
+            <div class="admin-grid">
+                <div class="form-section">
+                    <h2>Order Filters</h2>
+                    <div class="form-group">
+                        <label for="orderStatusFilter">Payment Status</label>
+                        <select id="orderStatusFilter">
+                            <option value="">All</option>
+                            <option value="CREATED">CREATED</option>
+                            <option value="PENDING">PENDING</option>
+                            <option value="PAID">PAID</option>
+                            <option value="FAILED">FAILED</option>
+                            <option value="CANCELLED">CANCELLED</option>
+                        </select>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" id="reloadOrdersBtn" class="btn-primary">Reload Orders</button>
+                    </div>
+                </div>
+                <div class="list-section">
+                    <div class="list-header">
+                        <h2>Order List</h2>
+                    </div>
+                    <div id="ordersList" class="items-container">
                         <div class="loading">Loading...</div>
                     </div>
                 </div>

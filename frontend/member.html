@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Orders</title>
+    <link rel="stylesheet" href="css/base/reset.css">
+    <link rel="stylesheet" href="css/components/header.css">
+    <style>
+        body { font-family: Arial, sans-serif; }
+        main { max-width: 980px; margin: 28px auto; padding: 0 16px; }
+        .order { border: 1px solid #ddd; border-radius: 8px; padding: 12px; margin-bottom: 12px; }
+        .order-title { font-weight: 700; margin-bottom: 6px; }
+        .muted { color: #666; font-size: 13px; }
+        .item { font-size: 14px; margin-top: 4px; }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="main-nav">
+            <ul class="categories-list">
+                <li><a href="home.html">Home</a></li>
+            </ul>
+        </nav>
+        <div class="sub-menu">
+            <div class="header-right">
+                <div id="auth-status"></div>
+                <div id="auth-links"></div>
+            </div>
+        </div>
+    </header>
+    <main>
+        <h1>Recent Orders (latest 5)</h1>
+        <div id="memberOrders">Loading...</div>
+    </main>
+    <script src="js/csrf.js"></script>
+    <script src="js/auth-status.js"></script>
+    <script src="js/member-orders.js"></script>
+</body>
+</html>

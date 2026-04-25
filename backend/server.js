@@ -124,6 +124,14 @@ app.get('/payment-success', (req, res) => {
 app.get('/payment-success.html', (req, res) => {
     res.sendFile(path.join(__dirname, '../frontend/payment-success.html'));
 });
+app.get('/member', (req, res) => {
+    if (!req.session || !req.session.user) return res.redirect('/login.html');
+    return res.sendFile(path.join(__dirname, '../frontend/member.html'));
+});
+app.get('/member.html', (req, res) => {
+    if (!req.session || !req.session.user) return res.redirect('/login.html');
+    return res.sendFile(path.join(__dirname, '../frontend/member.html'));
+});
 
 app.get('/change-password', sendChangePasswordPage);
 /* Must be before express.static so unauthenticated users cannot read the HTML without a session */

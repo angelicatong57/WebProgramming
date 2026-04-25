@@ -5,6 +5,7 @@ let editingProductId = null;
 let editingCategoryId = null;
 let allProducts = [];  // Cached product list for filtering
 let categoryMap = {};  // catid -> category name mapping for product list
+let allOrders = [];
 
 // ==================== Page init ====================
 document.addEventListener('DOMContentLoaded', function() {
@@ -30,6 +31,10 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('productSearch').addEventListener('keyup', filterProducts);
     document.getElementById('productFilter').addEventListener('change', filterProducts);
     document.getElementById('categorySearch').addEventListener('keyup', filterCategories);
+    const orderStatusFilter = document.getElementById('orderStatusFilter');
+    if (orderStatusFilter) orderStatusFilter.addEventListener('change', filterOrders);
+    const reloadOrdersBtn = document.getElementById('reloadOrdersBtn');
+    if (reloadOrdersBtn) reloadOrdersBtn.addEventListener('click', loadOrders);
     
     // Bind file upload preview (multi-images)
     document.getElementById('productImages').addEventListener('change', previewImage);
@@ -59,6 +64,7 @@ async function verifyAdminAndInit() {
         }
         loadCategories();
         loadProducts();
+        loadOrders();
     } catch (error) {
         window.location.href = '/login.html';
     }
@@ -80,6 +86,10 @@ function switchTab(tabId) {
         content.classList.remove('active');
     });
     document.getElementById(`${tabId}-tab`).classList.add('active');
+
+    if (tabId === 'orders') {
+        loadOrders();
+    }
 }
 
 
@@ -786,3 +796,67 @@ window.filterProducts = filterProducts;
 window.filterCategories = filterCategories;
 window.previewImage = previewImage;
 window.removeImage = removeImage;
+
+// ==================== Orders-related ====================
+async function loadOrders() {
+    const list = document.getElementById('ordersList');
+    if (!list) return;
+    try {
+        list.innerHTML = '<div class="loading">Loading...</div>';
+        const status = document.getElementById('orderStatusFilter')?.value || '';
+        const q = status ? `?status=${encodeURIComponent(status)}` : '';
+        const response = await fetch(`${API_BASE}/orders/admin/list${q}`);
+        if (response.status === 401 || response.status === 403) {
+            window.location.href = '/login.html';
+            return;
+        }
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        allOrders = await response.json();
+        displayOrders(allOrders);
+    } catch (error) {
+        console.error('Failed to load orders:', error);
+        list.innerHTML = '<div class="empty-state">❌ Failed to load orders</div>';
+    }
+}
+
+function filterOrders() {
+    const status = document.getElementById('orderStatusFilter')?.value || '';
+    if (!status) {
+        displayOrders(allOrders);
+        return;
+    }
+    displayOrders(allOrders.filter(o => String(o.status) === status));
+}
+
+function displayOrders(orders) {
+    const list = document.getElementById('ordersList');
+    if (!list) return;
+    if (!orders || orders.length === 0) {
+        list.innerHTML = '<div class="empty-state">📭 No orders</div>';
+        return;
+    }
+
+    const html = orders.map(order => {
+        const total = (Number(order.total_amount || 0) / 100).toFixed(2);
+        const itemsHtml = (order.items || []).map(i =>
+            `<div>pid=${i.pid} | ${escapeHtml(i.product_name || 'Unknown')} | qty=${i.quantity} | unit=$${(Number(i.unit_price) / 100).toFixed(2)}</div>`
+        ).join('');
+
+        return `
+            <div class="item-card order-card">
+                <div class="order-top">
+                    <div class="item-title">Order #${order.order_id} - ${escapeHtml(order.username || '')}</div>
+                    <span class="order-status">${escapeHtml(order.status || '')}</span>
+                </div>
+                <div class="item-meta">
+                    <span>Total: $${total}</span>
+                    <span>Currency: ${escapeHtml(order.currency || '')}</span>
+                    <span>Created: ${escapeHtml(order.created_at || '')}</span>
+                </div>
+                <div class="order-items">${itemsHtml || '<div>No items</div>'}</div>
+            </div>
+        `;
+    }).join('');
+
+    list.innerHTML = html;
+}

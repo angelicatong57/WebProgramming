@@ -45,10 +45,12 @@ const db = new sqlite3.Database(dbPath, (err) => {
                 stripe_session_id TEXT UNIQUE,
                 stripe_payment_intent_id TEXT UNIQUE,
                 created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-                updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
                 FOREIGN KEY (userid) REFERENCES users(userid)
             )
         `);
+
+        // Backward compatibility: older DBs may have a trigger that updates non-existent updated_at column.
+        db.run('DROP TRIGGER IF EXISTS trg_orders_updated_at');
 
         db.run(`
             CREATE TABLE IF NOT EXISTS order_items (

@@ -104,33 +104,40 @@ router.post(
 
             const stripeSecret = process.env.STRIPE_SECRET_KEY;
             let checkoutUrl = `${getBaseUrl(req)}/payment-success.html?order_id=${encodeURIComponent(orderId)}&mock=1`;
+            let paymentMode = 'mock';
 
             if (stripeSecret) {
-                const Stripe = require('stripe');
-                const stripe = new Stripe(stripeSecret);
-                const baseUrl = getBaseUrl(req);
-                const session = await stripe.checkout.sessions.create({
-                    mode: 'payment',
-                    success_url: `${baseUrl}/payment-success.html?order_id=${orderId}`,
-                    cancel_url: `${baseUrl}/home.html?checkout=cancelled`,
-                    payment_method_types: ['card'],
-                    metadata: { order_id: String(orderId) },
-                    line_items: itemsWithPrice.map(i => ({
-                        quantity: i.quantity,
-                        price_data: {
-                            currency: currency.toLowerCase(),
-                            unit_amount: i.unitPriceCents,
-                            product_data: { name: i.productName }
-                        }
-                    }))
-                });
+                try {
+                    const Stripe = require('stripe');
+                    const stripe = new Stripe(stripeSecret);
+                    const baseUrl = getBaseUrl(req);
+                    const session = await stripe.checkout.sessions.create({
+                        mode: 'payment',
+                        success_url: `${baseUrl}/payment-success.html?order_id=${orderId}`,
+                        cancel_url: `${baseUrl}/home.html?checkout=cancelled`,
+                        payment_method_types: ['card'],
+                        metadata: { order_id: String(orderId) },
+                        line_items: itemsWithPrice.map(i => ({
+                            quantity: i.quantity,
+                            price_data: {
+                                currency: currency.toLowerCase(),
+                                unit_amount: i.unitPriceCents,
+                                product_data: { name: i.productName }
+                            }
+                        }))
+                    });
 
-                checkoutUrl = session.url;
-                await db.runAsync('UPDATE orders SET stripe_session_id = ?, status = ? WHERE order_id = ?', [
-                    session.id,
-                    'PENDING',
-                    orderId
-                ]);
+                    checkoutUrl = session.url;
+                    paymentMode = 'stripe';
+                    await db.runAsync('UPDATE orders SET stripe_session_id = ?, status = ? WHERE order_id = ?', [
+                        session.id,
+                        'PENDING',
+                        orderId
+                    ]);
+                } catch (stripeErr) {
+                    console.error('Stripe checkout session create failed, fallback to mock mode:', stripeErr.message);
+                    await db.runAsync("UPDATE orders SET status = 'PENDING' WHERE order_id = ?", [orderId]);
+                }
             } else {
                 await db.runAsync("UPDATE orders SET status = 'PENDING' WHERE order_id = ?", [orderId]);
             }
@@ -138,7 +145,8 @@ router.post(
             return res.json({
                 orderId,
                 digest,
-                checkoutUrl
+                checkoutUrl,
+                paymentMode
             });
         } catch (err) {
             console.error('Failed to create checkout order:', err);
