@@ -13,20 +13,27 @@
     const root = document.getElementById('memberOrders');
     if (!root) return;
     if (!orders || orders.length === 0) {
-      root.innerHTML = '<p>No recent orders.</p>';
+      root.innerHTML = '<div class="empty-state">📭 No recent orders.</div>';
       return;
     }
 
     root.innerHTML = orders.map(order => {
       const total = (Number(order.total_amount || 0) / 100).toFixed(2);
       const items = (order.items || []).map(i =>
-        `<div class="item">pid=${i.pid} | ${escapeHtml(i.product_name || 'Unknown')} | qty=${i.quantity} | unit=$${(Number(i.unit_price || 0) / 100).toFixed(2)}</div>`
+        `<div class="member-order-item">pid=${i.pid} | ${escapeHtml(i.product_name || 'Unknown')} | qty=${i.quantity} | unit=$${(Number(i.unit_price || 0) / 100).toFixed(2)}</div>`
       ).join('');
       return `
-        <div class="order">
-          <div class="order-title">Order #${order.order_id} - ${escapeHtml(order.status || '')}</div>
-          <div class="muted">Created: ${escapeHtml(order.created_at || '')} | Total: $${total}</div>
-          <div>${items}</div>
+        <div class="item-card member-order-card">
+          <div class="member-order-top">
+            <div class="item-title">Order #${order.order_id}</div>
+            <span class="member-order-status">${escapeHtml(order.status || '')}</span>
+          </div>
+          <div class="member-order-meta">
+            <span>Created: ${escapeHtml(order.created_at || '')}</span>
+            <span>Total: $${total}</span>
+            <span>Currency: ${escapeHtml(order.currency || '')}</span>
+          </div>
+          <div class="member-order-items">${items || '<div class="member-order-item">No items</div>'}</div>
         </div>
       `;
     }).join('');
@@ -45,7 +52,7 @@
       const orders = await response.json();
       renderOrders(orders);
     } catch (err) {
-      root.innerHTML = `<p>Failed to load orders: ${escapeHtml(err.message || 'Unknown error')}</p>`;
+      root.innerHTML = `<div class="empty-state">❌ Failed to load orders: ${escapeHtml(err.message || 'Unknown error')}</div>`;
     }
   }
 
