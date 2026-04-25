@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MusiK Store - Login</title>
+    <link rel="icon" type="image/png" href="images/icon.png">
+    <link rel="stylesheet" href="css/admin_page/auth-pages.css">
+</head>
+<body class="auth-page-body">
+    <main class="auth-page">
+        <h1>Login</h1>
+        <p id="error"></p>
+        <form id="loginForm" class="auth-form">
+            <div class="form-row">
+                <label for="email">Email</label>
+                <input id="email" name="email" type="email" required>
+            </div>
+            <div class="form-row">
+                <label for="password">Password</label>
+                <input id="password" name="password" type="password" required>
+            </div>
+            <button type="submit">Login</button>
+        </form>
+        <div class="auth-footer">
+            <p>No account? <a href="/register.html">Register</a></p>
+            <p><a href="/home.html">Back to Home</a></p>
+        </div>
+    </main>
+    <script src="js/csrf.js"></script>
+    <script src="js/login.js"></script>
+</body>
+</html>

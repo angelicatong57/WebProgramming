@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MusiK E-Store - Product Detail</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/swiper@11/swiper-bundle.min.css">
+
+    <link rel="stylesheet" href="css/base/reset.css">
+    <link rel="stylesheet" href="css/components/header.css">
+    <link rel="stylesheet" href="css/components/productdetail.css">
+    <link rel="icon" type="image/png" href="images/icon.png">
+</head>
+<body>
+    <header>
+        <nav class="main-nav">
+            <ul class="categories-list">
+                <li><a href="home.html">Home</a></li>
+                <!-- Category links will be populated dynamically by nav-categories.js -->
+            </ul>
+        </nav>
+        <div class="sub-menu">
+            <div class="breadcrumb-container">
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-separator">></li>
+                    <li class="breadcrumb-item">
+                        <a href="home.html" class="breadcrumb-category-link">
+                            <span class="breadcrumb-category-name">category</span>
+                        </a>
+                    </li>
+                    <li class="breadcrumb-separator">></li>
+                    <li class="breadcrumb-item current product-breadcrumb-name">Product detail</li>
+                </ul>
+            </div>
+            <div class="header-right">
+            <div id="auth-status"></div>
+            <div class="cart-wrapper">
+                <div class="cart-trigger">
+                    <span>🛒 Shopping Cart</span>
+                </div>
+                <div class="shopping-cart">
+                    <div class="shopping-cart-title">
+                        <h3>Your Cart</h3>
+                    </div>
+                    <div class="cart-items">
+                        <!-- Cart items can be rendered dynamically by JS later; static example for now -->
+                        <div class="cart-item">
+                            <span class="cart-item-name">Sample product</span>
+                            <input type="number" class="cart-quantity" min="1" value="1">
+                            <span class="cart-item-price">$0.00</span>
+                            <button class="trashbin">delete</button>
+                        </div>
+                    </div>
+                    <div class="cart-total-checkout">
+                        <span class="cart-total">Total:</span>
+                        <p class="cart-toralprice">$0.00</p>
+                        <button class="cart-checkout-btn">Check Out</button>
+                    </div>
+                </div>
+            </div>
+            <div id="auth-links"></div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="product-detail">
+            <div class="product-image">
+                <div class="swiper mySwiper">
+                    <div class="swiper-wrapper">
+                        <!-- The first image will be replaced by product.js / database image; placeholder here -->
+                        <div class="swiper-slide">
+                            <img src="images/products/product1/folklore1.jpg" alt="Product image">
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="images/products/product1/folklore2.jpg" alt="Product image">
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="images/products/product1/folklore3.jpg" alt="Product image">
+                        </div>
+                        <div class="swiper-slide">
+                            <video
+                                class="swiper-lazy"
+                                src="images/products/product1/folklorevideo1.mp4"
+                                controls
+                                poster="images/products/product1/folklore4.jpg"
+                                preload="none"
+                            >
+                            </video>
+                        </div>
+                    </div>
+                    <div class="swiper-pagination"></div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                </div>
+            </div>
+
+            <div class="product-info">
+                <!-- These fields will be dynamically filled by product.js using /api/products/:pid -->
+                <h1 class="product-info__name">Loading product...</h1>
+                <p class="product-info__price">¥0.00</p>
+                <p class="product-info__desc">
+                    Loading description...
+                </p>
+
+                <div class="product-number_to_buy">
+                    <label class="select-label">Number</label>
+                    <div class="product-info__action">
+                        <input
+                            type="number"
+                            class="quantity-input"
+                            min="1"
+                            value="1"
+                            title="Select Quantity"
+                        >
+                        <button class="add-to-cart-btn">Add to Cart</button>
+                        <button class="buy-now-btn">Buy Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <nav class="footer-nav">
+            <ul>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="#terms">Terms & Conditions</a></li>
+            </ul>
+        </nav>
+        <p>&copy; 2025 MusiK E-Store. All rights reserved.</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/swiper@11/swiper-bundle.min.js"></script>
+    <!-- Scripts live in /js (same origin as this page under /frontend static root) -->
+    <script src="js/product-swiper.js"></script>
+    <script src="js/csrf.js"></script>
+    <script src="js/nav-categories.js"></script>
+    <script src="js/auth-status.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/image-path.js"></script>
+    <script src="js/product.js"></script>
+</body>
+</html>

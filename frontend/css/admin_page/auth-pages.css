@@ -1,0 +1,123 @@
+/* Shared styles for login, register, and change-password pages */
+
+.auth-page-body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+    box-sizing: border-box;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: #f4f6f9;
+}
+
+.auth-page {
+    width: 100%;
+    max-width: 32rem;
+    margin: 0 auto;
+    padding: 2.5rem 2rem;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(85, 153, 255, 0.12);
+}
+
+.auth-page h1 {
+    margin: 0 0 1.75rem;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #0066FF;
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.35rem;
+}
+
+.auth-form .form-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.auth-form label {
+    font-size: 0.95rem;
+    color: #334155;
+}
+
+.auth-form input[type="email"],
+.auth-form input[type="password"],
+.auth-form input[type="text"] {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.9rem 1rem;
+    font-size: 1.125rem;
+    line-height: 1.4;
+    border: 2px solid #cbd5e1;
+    border-radius: 8px;
+    background: #fff;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.auth-form input:focus {
+    outline: none;
+    border-color: #5599FF;
+    box-shadow: 0 0 0 3px rgba(85, 153, 255, 0.15);
+}
+
+.auth-form button[type="submit"] {
+    margin-top: 0.5rem;
+    width: 100%;
+    padding: 0.95rem 1.25rem;
+    font-size: 1.125rem;
+    font-weight: normal;
+    color: #fff;
+    background: #5599FF;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: filter 0.15s ease, transform 0.05s ease;
+}
+
+.auth-form button[type="submit"]:hover {
+    filter: brightness(0.92);
+}
+
+.auth-form button[type="submit"]:active {
+    transform: scale(0.99);
+}
+
+.auth-page #error {
+    margin: 0 0 1rem;
+    min-height: 1.25em;
+    text-align: center;
+    font-size: 0.95rem;
+    color: #b91c1c;
+}
+
+.auth-page #message {
+    margin: 0 0 1rem;
+    min-height: 1.25em;
+    text-align: center;
+    font-size: 0.95rem;
+    color: #15803d;
+}
+
+.auth-page .auth-footer {
+    margin-top: 1.75rem;
+    text-align: center;
+    font-size: 0.95rem;
+    color: #475569;
+    line-height: 1.6;
+}
+
+.auth-page .auth-footer a {
+    color: #5599FF;
+    text-decoration: none;
+}
+
+.auth-page .auth-footer a:hover {
+    text-decoration: underline;
+}

@@ -1,0 +1,23 @@
+# Dependencies
+node_modules/
+
+# Environment and secrets (create on server, never commit)
+.env
+.env.local
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Optional: user uploads on server (remove this line if you want uploads in repo)
+uploads/
+
+# Server-side session files (express-session + session-file-store)
+sessions/
+
+# Optional: local SQLite DB (remove if you need the DB file in Git for the team)
+# database/*.db

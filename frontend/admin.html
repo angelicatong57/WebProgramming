@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="css/admin_page/admin_page.css">
+    <link rel="icon" type="image/png" href="images/icon.png">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>
+                Admin Panel - Manage products and categories
+            </h1>
+            <div class="header-auth">
+                <div id="auth-status"></div>
+                <div id="auth-links"></div>
+            </div>
+        </header>
+        
+        <!-- Tabs navigation -->
+        <nav class="tabs">
+            <button class="tab-btn products active" data-tab="products">Products</button>
+            <button class="tab-btn categories" data-tab="categories">Categories</button>
+        </nav>
+        
+        <!-- Alert container -->
+        <div id="alert" class="alert"></div>
+        
+        <!-- Products panel -->
+        <section id="products-tab" class="tab-content active">
+            <div class="admin-grid">
+                <!-- Left: product form -->
+                <div class="form-section">
+                    <h2>
+                        <span id="productFormTitle">Add New Product</span>
+                    </h2>
+                    
+                    <form id="productForm" enctype="multipart/form-data">
+                        <!-- Hidden field -->
+                        <input type="hidden" id="productId" name="productId">
+                        
+                        <!-- Category -->
+                        <div class="form-group">
+                            <label for="productCatid">Category *</label>
+                            <select id="productCatid" name="catid" required>
+                                <option value="">-- Select a category --</option>
+                            </select>
+                        </div>
+                        
+                        <!-- Product name -->
+                        <div class="form-group">
+                            <label for="productName">Product Name *</label>
+                            <input type="text" id="productName" name="name" 
+                                   placeholder="Can't be empty" maxlength="100" required>
+                        </div>
+                        
+                        <!-- Price -->
+                        <div class="form-group">
+                            <label for="productPrice">Price ($) *</label>
+                            <input type="number" id="productPrice" name="price" 
+                                   step="0.01" min="0" placeholder="0.00" required>
+                        </div>
+
+                        <!-- Stock -->
+                        <div class="form-group">
+                            <label for="productStorage">Stock Quantity *</label>
+                            <input type="number" id="productStorage" name="storage"
+                                   step="1" min="0" placeholder="0" required>
+                        </div>
+                        
+                        <!-- Description -->
+                        <div class="form-group">
+                            <label for="productDescription">Product Description</label>
+                            <textarea id="productDescription" name="description" 
+                                      placeholder="Describe product features, specs, material, etc."></textarea>
+                        </div>
+                        
+                        <!-- Image upload -->
+                        <div class="form-group">
+                            <label>Product Images (multiple)</label>
+                            <div class="file-input-wrapper">
+                                <input type="file" id="productImages" name="images" 
+                                       accept="image/jpeg,image/png,image/gif" multiple>
+                                <div class="file-input-label">
+                                    Click to select one or more images
+                                </div>
+                                <div class="file-info">
+                                    Supports JPG, PNG, GIF | Max 10MB per image
+                                </div>
+                            </div>
+                            
+                            <!-- Image preview -->
+                            <div id="productImagePreview" class="image-preview" style="display: none;">
+                                <img id="previewImg" src="" alt="Preview">
+                                <div id="additionalImages" class="additional-images"></div>
+                                <button type="button" class="remove-image" aria-label="Remove image">×</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Form actions -->
+                        <div class="form-actions">
+                            <button type="submit" id="productSubmitBtn" class="btn-primary">Add Product</button>
+                            <button type="button" id="cancelProductEdit" class="btn-secondary" 
+                                    style="display: none;">Cancel Edit</button>
+                        </div>
+                    </form>
+                </div>
+                
+                <!-- Right: product list -->
+                <div class="list-section">
+                    <div class="list-header">
+                        <h2>Product List</h2>
+                        <div>
+                            <input type="text" id="productSearch" class="search-box" 
+                                   placeholder="Search products...">
+                            <select id="productFilter" class="filter-select">
+                                <option value="all">All categories</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <!-- Product list container -->
+                    <div id="productList" class="items-container">
+                        <div class="loading">Loading...</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Categories panel -->
+        <section id="categories-tab" class="tab-content">
+            <div class="admin-grid">
+                <!-- Left: category form -->
+                <div class="form-section">
+                    <h2>
+                        <span id="categoryFormTitle">Add New Category</span>
+                    </h2>
+                    
+                    <form id="categoryForm">
+                        <!-- Hidden field -->
+                        <input type="hidden" id="categoryId" name="categoryId">
+                        
+                        <!-- Category name -->
+                        <div class="form-group">
+                            <label for="categoryName">Category Name *</label>
+                            <input type="text" id="categoryName" name="name" 
+                                   placeholder="Can't be empty" maxlength="50" required>
+                        </div>
+                        
+                        <!-- Form actions -->
+                        <div class="form-actions">
+                            <button type="submit" id="categorySubmitBtn" class="btn-primary">Add Category</button>
+                            <button type="button" id="cancelCategoryEdit" class="btn-secondary" 
+                                    style="display: none;">Cancel Edit</button>
+                        </div>
+                    </form>
+                </div>
+                
+                <!-- Right: category list -->
+                <div class="list-section">
+                    <div class="list-header">
+                        <h2>Category List</h2>
+                        <input type="text" id="categorySearch" class="search-box" 
+                               placeholder="Search categories...">
+                    </div>
+                    
+                    <!-- Category list container -->
+                    <div id="categoryList" class="items-container">
+                        <div class="loading">Loading...</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Include JavaScript -->
+    <script src="js/csrf.js"></script>
+    <script src="js/image-path.js"></script>
+    <script src="js/auth-status.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>

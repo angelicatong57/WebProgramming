@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Result</title>
+    <link rel="stylesheet" href="css/base/reset.css">
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 720px; margin: 48px auto; padding: 0 16px; }
+        .box { border: 1px solid #ddd; border-radius: 8px; padding: 16px; }
+        .status { font-weight: 700; margin-bottom: 12px; }
+        .muted { color: #666; }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <div class="status" id="statusText">Checking payment status...</div>
+        <p class="muted" id="detailText">Please wait while we verify your payment.</p>
+        <p><a href="/home.html">Back to store</a></p>
+    </div>
+    <script src="js/csrf.js"></script>
+    <script src="js/payment-success.js"></script>
+</body>
+</html>

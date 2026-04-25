@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MusiK E-Store - Product List</title>
+
+    <link rel="stylesheet" href="css/base/reset.css">
+    <link rel="stylesheet" href="css/components/productlist.css">
+    <link rel="stylesheet" href="css/components/header.css">
+    <link rel="icon" type="image/png" href="images/icon.png">
+</head>
+<body>
+    <header>
+        <nav class="main-nav">
+            <ul class="categories-list">
+                <li><a href="home.html">Home</a></li>
+                <!-- Category links will be populated dynamically by nav-categories.js -->
+            </ul>
+        </nav>
+        <div class="sub-menu">
+            <div class="breadcrumb-container">
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/" class="breadcrumb-home">Home</a></li>
+                    <li class="breadcrumb-separator">></li>
+                    <li class="breadcrumb-item current breadcrumb-section">products</li>
+                </ul>
+            </div>
+            <div class="header-right">
+            <div id="auth-status"></div>
+            <div class="cart-wrapper">
+                <div class="cart-trigger">
+                    <span>🛒 Shopping Cart</span>
+                </div>
+                <div class="shopping-cart">
+                    <div class="shopping-cart-title">
+                        <h3>Your Cart</h3>
+                    </div>
+                    <div class="cart-items">
+                        <!-- Cart items can be rendered dynamically by JS later; static placeholder for now -->
+                        <div class="cart-item">
+                            <span class="cart-item-name">Sample product</span>
+                            <input type="number" class="cart-quantity" min="1" value="1">
+                            <span class="cart-item-price">$0.00</span>
+                            <button class="trashbin">delete</button>
+                        </div>
+                    </div>
+                    <div class="cart-total-checkout">
+                        <span class="cart-total">Total:</span>
+                        <p class="cart-toralprice">$0.00</p>
+                        <button class="cart-checkout-btn">Check Out</button>
+                    </div>
+                </div>
+            </div>
+            <div id="auth-links"></div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="product-list">
+            <div class="product-grid">
+                <!-- Initial placeholder to avoid empty flash -->
+                <p>Loading products...</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <nav class="footer-nav">
+            <ul>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="#terms">Terms & Conditions</a></li>
+            </ul>
+        </nav>
+        <p>&copy; 2025 MusiK E-Store. All rights reserved.</p>
+    </footer>
+
+    <script src="js/csrf.js"></script>
+    <script src="js/image-path.js"></script>
+    <script src="js/nav-categories.js"></script>
+    <script src="js/auth-status.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/home.js"></script>
+</body>
+</html>
