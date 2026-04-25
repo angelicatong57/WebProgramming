@@ -1,11 +1,27 @@
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: #f0f2f5;
-    padding: 20px;
+    padding: 0;
+}
+
+.member-container {
+    padding-top: 24px;
+    width: 1200px;
+    margin: 0 auto;
+}
+
+.member-title {
+    color: #111;
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0 0 18px 0;
+    text-align: left;
+    padding: 0;
 }
 
 .member-orders-panel {
     border-radius: 8px;
+    margin: 0;
 }
 
 .member-order-card {
@@ -50,9 +66,22 @@ body {
 }
 
 @media (max-width: 768px) {
+    .member-container {
+        width: calc(100% - 24px);
+    }
+
+    .member-title {
+        font-size: 20px;
+        padding: 0;
+    }
+
     .member-order-top {
         align-items: flex-start;
         flex-direction: column;
         gap: 6px;
+    }
+
+    .member-orders-panel {
+        margin: 0;
     }
 }

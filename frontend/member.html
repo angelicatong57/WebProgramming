@@ -11,14 +11,22 @@
     <link rel="icon" type="image/png" href="images/icon.png">
 </head>
 <body>
-    <div class="container">
-        <header class="header">
-            <h1>My Orders <span>latest 5 purchases</span></h1>
-            <div class="header-auth">
+    <header>
+        <nav class="main-nav">
+            <ul class="categories-list">
+                <li><a href="home.html">Home</a></li>
+            </ul>
+        </nav>
+        <div class="sub-menu">
+            <div class="header-right">
                 <div id="auth-status"></div>
                 <div id="auth-links"></div>
             </div>
-        </header>
+        </div>
+    </header>
+
+    <div class="container member-container">
+        <h1 class="member-title">My Orders (last 5 purchases)</h1>
         <section class="tab-content active member-orders-panel">
             <div id="memberOrders" class="items-container">
                 <div class="loading">Loading...</div>
